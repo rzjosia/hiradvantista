@@ -30,19 +30,26 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
-    sdk: flutter
+    sdk: "flutter"
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_launcher_icons: ^0.9.0
-  hive: ^2.0.4
-  hive_flutter: ^1.0.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  intl: ^0.18.0
+  yaml: ^3.1.1
+  flutter_native_splash: ^2.2.16
+  flutter_launcher_icons: ^0.11.0
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter
+    sdk: "flutter"
+  integration_test:
+    sdk: "flutter"
+  flutter_driver:
+    sdk: "flutter"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -50,11 +57,29 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  hive_generator: ^1.1.0
+  build_runner: ^2.3.3
+  hive_test: ^1.0.1
 
 flutter_icons:
   android: true
   image_path_ios: "assets/images/icon.png"
   image_path_android: "assets/images/icon.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/icon.png
+  color_dark: "#333333"
+  image_dark: assets/images/icon.png
+
+  android_12:
+    image: assets/images/icon.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/images/icon.png
+    icon_background_color_dark: "#333333"
+
+  web: false
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -70,6 +95,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/data/sources/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

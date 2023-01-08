@@ -1,9 +1,36 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hiradvantista/screens/Home.dart';
-import 'package:hiradvantista/screens/about.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:hiradvantista/src/features/core/presentation/home.dart';
+import 'package:hiradvantista/src/features/song/application/song_service.dart';
+import 'package:hiradvantista/src/features/song/domain/song_model.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  await initHive();
+
   runApp(const MyApp());
+}
+
+Future<void> initHive({bool isTest = false}) async {
+  await Hive.initFlutter();
+
+  if (!Hive.isAdapterRegistered(0)) {
+    Hive.registerAdapter(SongModelAdapter());
+  }
+
+  Box<SongModel> box = await Hive.openBox("songs");
+
+  if (kDebugMode || isTest) {
+    box.deleteAll(box.keys);
+  }
+
+  if (box.isEmpty) {
+    await SongService(box: box).loadSongs();
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -14,54 +41,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _selectedIndex = 0;
-
-  static const navigationItems = [
-    {
-      'title': 'Fihirana advantista',
-      'label': 'Accueil',
-      'icon': Icons.home,
-      'screen': Home(),
-    },
-    {
-      'title': 'A propos',
-      'label': 'A propos',
-      'icon': Icons.info,
-      'screen': About(),
-    },
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Fihirana advantista",
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("${navigationItems[_selectedIndex]['title']}"),
+        title: "Fihirana advantista",
+        theme: ThemeData(
+          primarySwatch: Colors.green,
         ),
-        body: navigationItems[_selectedIndex]['screen'] as Widget,
-        bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            ...navigationItems.map((item) => BottomNavigationBarItem(
-                  icon: Icon(item['icon'] as IconData),
-                  label: item['label'] as String,
-                  tooltip: item['title'] as String,
-                ))
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.green,
-          onTap: _onItemTapped,
-        ),
-      ),
-    );
+        home: const Home());
   }
 }
