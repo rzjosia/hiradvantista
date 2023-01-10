@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         title: "Fihirana advantista",
         theme: ThemeData(
           primarySwatch: Colors.green,
+
         ),
         home: const Home());
   }
