@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hiradvantista/src/common_widgets/app_circular_progress_bar.dart';
 import 'package:hiradvantista/src/features/song/domain/song_model.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -25,6 +26,16 @@ class Song extends StatelessWidget {
                 return Scaffold(
                   appBar: AppBar(
                     title: Text("Hira ${song.id}"),
+                    actions: [
+                      IconButton(
+                        icon: song.isFavorite == true
+                            ? const Icon(Icons.favorite, color: Colors.red)
+                            : const Icon(Icons.favorite_border),
+                        onPressed: () async {
+                          await songService.toggleFavorite(song);
+                        }
+                      )
+                    ],
                   ),
                   body: SingleChildScrollView(
                     child: Column(children: [
@@ -65,7 +76,7 @@ class Song extends StatelessWidget {
                 return Text("${snapshot.error}");
               }
 
-              return const CircularProgressIndicator();
+              return const AppCircularProgressBar();
             },
           );
         });

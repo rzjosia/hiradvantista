@@ -23,10 +23,7 @@ class SongListItem extends StatelessWidget {
             ? const Icon(Icons.favorite, color: Colors.red)
             : const Icon(Icons.favorite_border),
         onPressed: () async {
-          SongService songService =
-              SongService(box: Hive.box<SongModel>("songs"));
-
-          await songService.toggleFavorite(song);
+          SongService(box: Hive.box<SongModel>("songs")).toggleFavorite(song);
         },
       ),
       onTap: () {

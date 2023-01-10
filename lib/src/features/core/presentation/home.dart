@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiradvantista/src/features/core/presentation/about.dart';
 import 'package:hiradvantista/src/features/song/presentation/song_list.dart';
+import 'package:hiradvantista/src/features/song/presentation/widgets/song_list_favorites.dart';
 import 'package:hiradvantista/src/features/song/presentation/widgets/song_search_delegate.dart';
 
 class Home extends StatefulWidget {
@@ -19,12 +20,18 @@ class _HomeState extends State<Home> {
     {
       'title': 'Fihirana advantista',
       'label': 'Hira',
+
       'icon': Icons.list,
     },
     {
       'title': 'Hitady',
       'label': 'Hitady',
       'icon': Icons.search,
+    },
+    {
+      'title': 'Hira tianao',
+      'label': 'Hira tianao',
+      'icon': Icons.favorite,
     },
     {
       'title': 'Mombamomba',
@@ -68,6 +75,7 @@ class _HomeState extends State<Home> {
         children: const [
           SongList(),
           SongList(),
+          SongListFavorites(),
           About(),
         ],
       ),

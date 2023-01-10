@@ -39,6 +39,14 @@ class SongListFilter extends StatelessWidget {
               builder: (context, AsyncSnapshot<List<SongModel>> snapshot) {
                 if (snapshot.hasData) {
                   final data = snapshot.data as List<SongModel>;
+
+                  if (data.isEmpty) {
+                    return const Center(
+                      child: Text(
+                          "Tsy misy na inona na inona ato amin'ny tadiavinao"),
+                    );
+                  }
+
                   return ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {
