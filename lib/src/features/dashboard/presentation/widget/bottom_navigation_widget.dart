@@ -1,0 +1,37 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../controller/dashboard_controller.dart';
+import 'menu_items.dart';
+
+class BottomNavigationWidget extends ConsumerStatefulWidget {
+  const BottomNavigationWidget({super.key});
+
+  @override
+  ConsumerState<BottomNavigationWidget> createState() =>
+      _BottomNavigationWidgetState();
+}
+
+class _BottomNavigationWidgetState
+    extends ConsumerState<BottomNavigationWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final position = ref.watch(dashboardControllerProvider);
+
+    return AnimatedBottomNavigationBar(
+      icons: Menu.items.map((e) => e.icon).toList(),
+      onTap: _onTap,
+      activeIndex: position,
+      gapLocation: GapLocation.center,
+      notchSmoothness: NotchSmoothness.defaultEdge,
+      activeColor: Colors.white,
+      backgroundColor: Menu.items[position].backgroundColor,
+      inactiveColor: Colors.white54,
+    );
+  }
+
+  void _onTap(int index) {
+    ref.read(dashboardControllerProvider.notifier).setPosition(index);
+  }
+}

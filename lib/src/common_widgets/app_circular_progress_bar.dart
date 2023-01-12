@@ -14,10 +14,8 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
   @override
   void initState() {
     controller = AnimationController(
-      /// [AnimationController]s can be created with `vsync: this` because of
-      /// [TickerProviderStateMixin].
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 3),
     )..addListener(() {
         setState(() {});
       });
