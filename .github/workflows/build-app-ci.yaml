@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: '18.X'
+          java-version: '17.X'
           cache: 'gradle'
 
       - name: Setup flutter
@@ -33,18 +33,6 @@ jobs:
 
       - name: Analyze code
         run: flutter analyze .
-
-      - name: Run tests
-        run: flutter test
-
-      - name: Build apk
-        run: flutter build apk
-
-      - uses: actions/upload-artifact@v1
-        name: Get apk file
-        with:
-          name: release-apk
-          path: build/app/outputs/apk/release/hiradvantista.apk
 
   test:
     name: Tests
