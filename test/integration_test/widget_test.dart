@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hiradvantista/src/app.dart';
-import 'package:hiradvantista/src/constants/about_constant.dart';
+import 'package:hiradvantista/src/constants/app_info.dart';
 import 'package:hiradvantista/src/features/hymn/domain/song_model.dart';
 import 'package:hiradvantista/src/features/hymn/repository/hymn_repository.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -36,6 +36,7 @@ void main() {
       box.deleteAll(box.keys);
 
       await HymnRepository(box: box).loadSongs();
+      await AppInfo().init();
     });
   }
 
@@ -94,8 +95,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text("Mombamomba"), findsOneWidget);
-    expect(find.textContaining(AboutApp.description), findsOneWidget);
-    expect(find.textContaining(AboutApp.author), findsOneWidget);
-    expect(find.textContaining(AboutApp.developerEmail), findsOneWidget);
+    expect(find.textContaining(AppInfo().description), findsOneWidget);
+    expect(find.textContaining(AppInfo().author), findsOneWidget);
+    expect(find.textContaining(AppInfo().developerEmail), findsOneWidget);
   });
 }
