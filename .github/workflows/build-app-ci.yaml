@@ -45,7 +45,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: '18.X'
+          java-version: '17.X'
           cache: 'gradle'
 
       - name: Setup flutter
@@ -73,7 +73,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: '18.X'
+          java-version: '17.X'
           cache: 'gradle'
 
       - name: Setup flutter
@@ -93,4 +93,4 @@ jobs:
         name: Get apk file
         with:
           name: release-apk
-          path: build/app/outputs/apk/release/hiradvantista.apk
+          path: build/app/outputs/apk/release/app-release.apk
