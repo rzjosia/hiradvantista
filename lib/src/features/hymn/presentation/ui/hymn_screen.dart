@@ -53,6 +53,7 @@ class _HymnScreenState extends ConsumerState<HymnScreen> {
                   ),
                   actions: <Widget>[
                     IconButton(
+                      key: Key("favorite-${song.id}"),
                       icon: song.isFavorite == true
                           ? const Icon(Icons.favorite, color: Colors.red)
                           : const Icon(Icons.favorite_border),

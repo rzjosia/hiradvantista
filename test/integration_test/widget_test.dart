@@ -1,17 +1,13 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hiradvantista/src/app.dart';
 import 'package:hiradvantista/src/constants/about_constant.dart';
-import 'package:hiradvantista/src/utils/hive_db.dart';
+import 'package:hiradvantista/src/features/hymn/domain/song_model.dart';
+import 'package:hiradvantista/src/features/hymn/repository/hymn_repository.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:hive_test/hive_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 void main() {
   setUp(() async {
@@ -22,9 +18,30 @@ void main() {
     await tearDownTestHive();
   });
 
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+
+  Future<void> init(WidgetTester tester) async {
+    return await tester.runAsync(() async {
+      await Hive.initFlutter();
+
+      if (!Hive.isAdapterRegistered(0)) {
+        Hive.registerAdapter(SongModelAdapter());
+      }
+
+      await Hive.openBox<SongModel>("songs");
+
+      Box<SongModel> box = await Hive.openBox("songs");
+
+      box.deleteAll(box.keys);
+
+      await HymnRepository(box: box).loadSongs();
+    });
+  }
+
   testWidgets('Display song in list', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.runAsync(() => HiveDb().init());
+    await init(tester);
     await tester.pumpWidget(const ProviderScope(child: MyApp()));
     await tester.pumpAndSettle();
 
@@ -37,9 +54,37 @@ void main() {
     expect(find.textContaining("Andriana ambony hasina"), findsOneWidget);
   });
 
+  testWidgets('Add and remove favorite', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await init(tester);
+    await tester.pumpWidget(const ProviderScope(child: MyApp()));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key("favorite-1")), findsOneWidget);
+    expect(find.byKey(const Key("favorite-9")), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key("favorite-1")));
+    await tester.tap(find.byKey(const Key("fihirana-1")));
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining("Andriana ambony hasina"), findsOneWidget);
+
+    var favoriteIcon =
+        tester.widget<IconButton>(find.byKey(const Key("favorite-1")));
+    expect((favoriteIcon.icon as Icon).color, Colors.red);
+
+    await tester.tap(find.byKey(const Key("favorite-1")));
+    await tester.pumpAndSettle();
+
+    favoriteIcon =
+        tester.widget<IconButton>(find.byKey(const Key("favorite-1")));
+
+    expect((favoriteIcon.icon as Icon).icon, Icons.favorite_border);
+  });
+
   testWidgets('About page show developer email', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.runAsync(() => HiveDb().init());
+    await init(tester);
     await tester.pumpWidget(const ProviderScope(child: MyApp()));
     await tester.pumpAndSettle();
 

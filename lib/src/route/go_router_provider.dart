@@ -9,7 +9,8 @@ import 'package:hiradvantista/src/features/hymn/presentation/ui/hymn_screen.dart
 
 import '../features/dashboard/presentation/ui/dashboard_screen.dart';
 import '../features/error/presentation/ui/error_screen.dart';
-import 'named_route.dart';
+import '../features/initialization/presentation/ui/initialization_screen.dart';
+import 'route_name.dart';
 
 final GlobalKey<NavigatorState> _rootNavigator = GlobalKey(debugLabel: 'root');
 
@@ -21,14 +22,22 @@ final Provider goRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: _rootNavigator,
     initialLocation: '/',
     routes: [
+      GoRoute(
+        path: '/',
+        name: RouteName.initialization,
+        parentNavigatorKey: _rootNavigator,
+        builder: (context, state) {
+          return InitializationScreen(key: state.pageKey);
+        },
+      ),
       ShellRoute(
         navigatorKey: _shellNavigator,
         builder: (context, state, child) =>
             DashboardScreen(key: state.pageKey, child: child),
         routes: [
           GoRoute(
-              path: '/',
-              name: NamedRoute.home,
+              path: '/hymns',
+              name: RouteName.home,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                   child: HymnListScreen(key: state.pageKey),
@@ -36,7 +45,7 @@ final Provider goRouterProvider = Provider<GoRouter>((ref) {
               }),
           GoRoute(
               path: '/favorites',
-              name: NamedRoute.favorite,
+              name: RouteName.favorite,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                   child: FavoriteHymnListScreen(key: state.pageKey),
@@ -44,7 +53,7 @@ final Provider goRouterProvider = Provider<GoRouter>((ref) {
               }),
           GoRoute(
               path: '/about',
-              name: NamedRoute.about,
+              name: RouteName.about,
               pageBuilder: (context, state) {
                 return NoTransitionPage(
                   child: AboutScreen(key: state.pageKey),
@@ -54,10 +63,11 @@ final Provider goRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/hymn/:id',
-        name: NamedRoute.hymn,
+        name: RouteName.hymn,
         parentNavigatorKey: _rootNavigator,
         builder: (context, state) {
-          return HymnScreen(id: int.parse(state.params['id']!), key: state.pageKey);
+          return HymnScreen(
+              id: int.parse(state.params['id']!), key: state.pageKey);
         },
       ),
     ],

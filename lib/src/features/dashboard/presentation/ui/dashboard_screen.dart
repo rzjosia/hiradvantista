@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hiradvantista/src/features/hymn/presentation/widget/hymn_search_delegate_widget.dart';
 
-import '../../controller/dashboard_controller.dart';
+import '../controller/dashboard_controller.dart';
 import '../widget/bottom_navigation_widget.dart';
 import '../widget/menu_items.dart';
 
@@ -17,10 +17,6 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen>
     with TickerProviderStateMixin {
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

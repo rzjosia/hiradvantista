@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppCircularProgressBar extends StatefulWidget {
-  const AppCircularProgressBar({Key? key}) : super(key: key);
+  final String? message;
+
+  const AppCircularProgressBar({ Key? key, this.message}) : super(key: key);
 
   @override
   State<AppCircularProgressBar> createState() => _AppCircularProgressBarState();
@@ -16,7 +18,8 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
-    )..addListener(() {
+    )
+      ..addListener(() {
         setState(() {});
       });
     controller.repeat(reverse: true);
@@ -35,6 +38,12 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          if (widget.message != null)
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(8),
+              child: Text(widget.message!),
+            ),
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(10.0),

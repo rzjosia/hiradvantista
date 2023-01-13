@@ -22,6 +22,7 @@ class HymnListItemWidget extends ConsumerWidget {
       ),
       title: Text(song.title),
       trailing: IconButton(
+        key: Key("favorite-${song.id}"),
         icon: song.isFavorite == true
             ? const Icon(
                 Icons.favorite,

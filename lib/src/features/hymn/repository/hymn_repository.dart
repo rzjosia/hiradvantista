@@ -65,4 +65,12 @@ class HymnRepository {
   Future<void> toggleFavorite(SongModel song) async {
     box.putAt(song.id - 1, song.setIsFavorite(!song.isFavorite!));
   }
+
+  Future<void> deleteAll() async {
+    await box.deleteAll(box.keys);
+  }
+
+  bool isEmpty() {
+    return box.isEmpty;
+  }
 }

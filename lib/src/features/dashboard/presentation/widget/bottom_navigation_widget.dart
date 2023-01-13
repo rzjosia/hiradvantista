@@ -2,7 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../controller/dashboard_controller.dart';
+import '../controller/dashboard_controller.dart';
 import 'menu_items.dart';
 
 class BottomNavigationWidget extends ConsumerStatefulWidget {
