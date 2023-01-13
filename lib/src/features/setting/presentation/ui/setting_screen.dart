@@ -17,7 +17,6 @@ class SettingScreen extends StatelessWidget {
             "assets/images/building_app.png",
             fit: BoxFit.contain,
           ),
-
         ),
       ),
     );

@@ -17,7 +17,6 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen>
     with TickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
     final position = ref.watch(dashboardControllerProvider);

@@ -51,7 +51,6 @@ class SongModel {
         return null;
     }
   }
-
 }
 
 extension SongModelExtension on SongModel {
