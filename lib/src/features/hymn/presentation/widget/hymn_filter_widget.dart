@@ -11,15 +11,14 @@ class HymnFilterWidget extends ConsumerWidget {
   final String searchQuery;
 
   const HymnFilterWidget(
-      {Key? key,
-      this.filterType = HymnFilterType.all,
-      this.searchQuery = ""})
+      {Key? key, this.filterType = HymnFilterType.all, this.searchQuery = ""})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     HymnService service = ref.watch(hymnServiceProvider);
-    Future<List<SongModel>> songs = service.getSongsByFilter(filterType, searchQuery: searchQuery);
+    Future<List<SongModel>> songs =
+        service.getSongsByFilter(filterType, searchQuery: searchQuery);
 
     return FutureBuilder(
       future: songs,
@@ -29,7 +28,8 @@ class HymnFilterWidget extends ConsumerWidget {
 
           if (data.isEmpty) {
             return const Center(
-              child: Text("Tsy misy na inona na inona amin'izay tadiavinao ato"),
+              child:
+                  Text("Tsy misy na inona na inona amin'izay tadiavinao ato"),
             );
           }
 
