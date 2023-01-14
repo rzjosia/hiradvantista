@@ -26,8 +26,8 @@ class _BottomNavigationWidgetState
       gapLocation: GapLocation.center,
       notchSmoothness: NotchSmoothness.defaultEdge,
       activeColor: Colors.white,
-      backgroundColor: Menu.items[position].backgroundColor,
       inactiveColor: Colors.white54,
+      backgroundColor: Colors.brown,
     );
   }
 

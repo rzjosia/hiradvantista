@@ -11,7 +11,6 @@ class FavoriteHymnListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hira tianao'),
-        backgroundColor: Colors.red,
       ),
       body: const HymnFilterWidget(filterType: HymnFilterType.favorite),
     );

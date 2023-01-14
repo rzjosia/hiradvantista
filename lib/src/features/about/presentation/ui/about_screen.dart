@@ -14,7 +14,6 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mombamomba'),
-        backgroundColor: Colors.teal,
       ),
       body: Container(
         alignment: Alignment.center,

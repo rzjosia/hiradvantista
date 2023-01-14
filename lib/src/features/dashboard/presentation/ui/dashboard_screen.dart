@@ -31,7 +31,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
             delegate: HymnSearchDelegateWidget(),
           );
         },
-        backgroundColor: Menu.items[position].backgroundColor,
+        backgroundColor: Colors.brown,
         child: const Icon(Icons.search),
       ),
       bottomNavigationBar: const BottomNavigationWidget(),

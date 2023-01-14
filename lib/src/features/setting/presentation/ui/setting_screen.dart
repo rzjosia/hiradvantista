@@ -8,7 +8,6 @@ class SettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: Colors.blueGrey,
       ),
       body: Center(
         child: Container(
