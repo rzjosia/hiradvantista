@@ -34,25 +34,29 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          if (widget.message != null)
+      body: SizedBox(
+        width : double.infinity,
+        height: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            if (widget.message != null)
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(8),
+                child: Text(widget.message!),
+              ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(8),
-              child: Text(widget.message!),
+              padding: const EdgeInsets.all(10.0),
+              child: CircularProgressIndicator(
+                value: controller.value,
+                semanticsLabel: 'Loading',
+              ),
             ),
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(10.0),
-            child: CircularProgressIndicator(
-              value: controller.value,
-              semanticsLabel: 'Loading',
-            ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
 }

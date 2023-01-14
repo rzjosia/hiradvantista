@@ -9,9 +9,13 @@ import '../../domain/song_model.dart';
 class HymnFilterWidget extends ConsumerWidget {
   final HymnFilterType filterType;
   final String searchQuery;
+  final bool isSliver;
 
   const HymnFilterWidget(
-      {Key? key, this.filterType = HymnFilterType.all, this.searchQuery = ""})
+      {Key? key,
+      this.filterType = HymnFilterType.all,
+      this.searchQuery = "",
+      this.isSliver = false})
       : super(key: key);
 
   @override
@@ -19,6 +23,46 @@ class HymnFilterWidget extends ConsumerWidget {
     HymnService service = ref.watch(hymnServiceProvider);
     Future<List<SongModel>> songs =
         service.getSongsByFilter(filterType, searchQuery: searchQuery);
+
+    if (isSliver) {
+      return FutureBuilder(
+        future: songs,
+        builder: (context, AsyncSnapshot<List<SongModel>> snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data as List<SongModel>;
+
+            if (data.isEmpty) {
+              return const SliverToBoxAdapter(
+                child: Center(
+                  child: Text(
+                      "Tsy misy na inona na inona amin'izay tadiavinao ato"),
+                ),
+              );
+            }
+
+            return SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return HymnListItemWidget(
+                    key: Key("fihirana-${data[index]['id']}"),
+                    song: data[index]);
+              }, childCount: data.length),
+            );
+          } else if (snapshot.hasError) {
+            return SliverToBoxAdapter(
+              child: Center(
+                child: Text("${snapshot.error}"),
+              ),
+            );
+          }
+
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: AppCircularProgressBar(),
+            ),
+          );
+        },
+      );
+    }
 
     return FutureBuilder(
       future: songs,
