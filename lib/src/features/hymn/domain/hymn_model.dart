@@ -1,9 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'song_model.g.dart';
+part 'hymn_model.g.dart';
 
 @HiveType(typeId: 0)
-class SongModel {
+class HymnModel {
   @HiveField(0)
   final int id;
 
@@ -19,15 +19,15 @@ class SongModel {
   @HiveField(4)
   final bool? isFavorite;
 
-  SongModel(
+  HymnModel(
       {required this.id,
       required this.title,
       required this.key,
       required this.content,
       this.isFavorite = false});
 
-  factory SongModel.fromJson(Map<String, dynamic> json) {
-    return SongModel(
+  factory HymnModel.fromJson(Map<String, dynamic> json) {
+    return HymnModel(
         id: json['id'],
         title: json['title'],
         key: json['key'],
@@ -53,9 +53,9 @@ class SongModel {
   }
 }
 
-extension SongModelExtension on SongModel {
-  SongModel setIsFavorite(bool isFavorite) {
-    return SongModel(
+extension HymnModelExtension on HymnModel {
+  HymnModel setIsFavorite(bool isFavorite) {
+    return HymnModel(
         id: id,
         title: title,
         key: key,

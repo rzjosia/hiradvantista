@@ -16,13 +16,12 @@ class InitService {
   Future<bool> initData({bool isTest = false}) async {
     HymnRepository hymnRepository = ref.watch(hymnRepositoryProvider);
 
-
     if (kDebugMode || isTest) {
       await hymnRepository.deleteAll();
     }
 
     if (hymnRepository.isEmpty()) {
-      await ref.watch(hymnRepositoryProvider).loadSongs();
+      await ref.watch(hymnRepositoryProvider).loadHymns();
     }
 
     await AppInfo().init();

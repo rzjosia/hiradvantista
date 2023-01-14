@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   analyze-code:
-    name: Analyze c
+    name: Analyze code
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,6 +30,9 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
+
+      - name: Format code
+        run: flutter format --set-exit-if-changed .
 
       - name: Analyze code
         run: flutter analyze .

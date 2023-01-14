@@ -33,30 +33,30 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      body: SizedBox(
-        width : double.infinity,
-        height: 100,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (widget.message != null)
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(8),
-                child: Text(widget.message!),
-              ),
+        body: SizedBox(
+      width: double.infinity,
+      height: mediaQuery.size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          if (widget.message != null)
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(10.0),
-              child: CircularProgressIndicator(
-                value: controller.value,
-                semanticsLabel: 'Loading',
-              ),
+              padding: const EdgeInsets.all(8),
+              child: Text(widget.message!),
             ),
-          ],
-        ),
-      )
-    );
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(10.0),
+            child: CircularProgressIndicator(
+              value: controller.value,
+              semanticsLabel: 'Loading',
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }

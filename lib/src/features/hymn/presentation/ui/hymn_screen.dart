@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hiradvantista/src/common_widgets/app_circular_progress_bar.dart';
 
-import '../../application/song_service.dart';
-import '../../domain/song_model.dart';
+import '../../application/hymn_service.dart';
+import '../../domain/hymn_model.dart';
 
 class HymnScreen extends ConsumerStatefulWidget {
   final int id;
@@ -17,16 +17,16 @@ class HymnScreen extends ConsumerStatefulWidget {
 class _HymnScreenState extends ConsumerState<HymnScreen> {
   @override
   Widget build(BuildContext context) {
-    final songService = ref.watch(hymnServiceProvider);
-    final Future<SongModel> song = songService.getSongByNumerous(widget.id);
+    final hymnService = ref.watch(hymnServiceProvider);
+    final Future<HymnModel> hymn = hymnService.getHymnById(widget.id);
 
     return FutureBuilder(
-      future: song,
-      builder: (context, AsyncSnapshot<SongModel> snapshot) {
+      future: hymn,
+      builder: (context, AsyncSnapshot<HymnModel> snapshot) {
         if (snapshot.hasData) {
-          final SongModel song = snapshot.data as SongModel;
+          final HymnModel hymn = snapshot.data as HymnModel;
           final title =
-              "${song.id} - ${song.title} ${song.key != "" ? "(${song.key})" : ""} ";
+              "${hymn.id} - ${hymn.title} ${hymn.key != "" ? "(${hymn.key})" : ""} ";
 
           return Scaffold(
             body: CustomScrollView(
@@ -53,14 +53,14 @@ class _HymnScreenState extends ConsumerState<HymnScreen> {
                   ),
                   actions: <Widget>[
                     IconButton(
-                      key: Key("favorite-${song.id}"),
-                      icon: song.isFavorite == true
+                      key: Key("favorite-${hymn.id}"),
+                      icon: hymn.isFavorite == true
                           ? const Icon(Icons.favorite, color: Colors.red)
                           : const Icon(Icons.favorite_border),
                       onPressed: () async {
                         await ref
                             .watch(hymnServiceProvider)
-                            .toggleFavorite(song);
+                            .toggleFavorite(hymn);
                       },
                     ),
                   ],
@@ -70,7 +70,7 @@ class _HymnScreenState extends ConsumerState<HymnScreen> {
                     padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                     child: SizedBox(
                       width: double.infinity,
-                      child: Text(song.content,
+                      child: Text(hymn.content,
                           style: const TextStyle(fontSize: 18, height: 1.5)),
                     ),
                   ),

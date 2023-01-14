@@ -20,7 +20,7 @@ class AppInfo {
 
   get copyRight => "© 2023 $author";
 
-  get developerPaypal => "rzjosia";
+  get developerPaypal => "H4V2MM2SH89J4";
 
   static final AppInfo _instance = AppInfo._internal();
 

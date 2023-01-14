@@ -6,7 +6,7 @@ class IconLink extends StatelessWidget {
   final FaIcon icon;
   final String url;
 
-  const IconLink({required this.icon, required this.url, Key? key })
+  const IconLink({required this.icon, required this.url, Key? key})
       : super(key: key);
 
   @override
@@ -15,16 +15,18 @@ class IconLink extends StatelessWidget {
       try {
         launchUrlString(url, mode: LaunchMode.externalApplication);
       } catch (e) {
-        showDialog(context: context, builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text('Error launching url: $url'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            )
-          ],
-        ));
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text('Error'),
+                  content: Text('Error launching url: $url'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('OK'),
+                    )
+                  ],
+                ));
       }
     }
 
