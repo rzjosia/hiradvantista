@@ -30,15 +30,14 @@ class _InitializationScreenState extends ConsumerState<InitializationScreen> {
             body: Center(
               child: Container(
                 padding: const EdgeInsets.all(8),
-                child: const Text(
-                    "Une erreur est survenue lors du chargement."),
+                child:
+                    const Text("Une erreur est survenue lors du chargement."),
               ),
             ),
           );
         }
 
-        return const AppCircularProgressBar(
-            message: "Chargement en cours...");
+        return const AppCircularProgressBar(message: "Chargement en cours...");
       },
     );
   }

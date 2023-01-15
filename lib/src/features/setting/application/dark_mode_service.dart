@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final darkModeServiceProvider = StateNotifierProvider<DarkModeService, bool>(
-      (ref) => DarkModeService(),
+  (ref) => DarkModeService(),
 );
 
 class DarkModeService extends StateNotifier<bool> {
