@@ -29,25 +29,25 @@ class Menu {
   static const List<MenuItem> items = <MenuItem>[
     MenuItem(
         name: home,
-        title: "Hira",
+        title: "Cantiques",
         icon: Icons.list,
         backgroundColor: Colors.brown,
         screen: HymnListScreen()),
     MenuItem(
         name: favorite,
-        title: "Hira tianao",
+        title: "Favoris",
         icon: Icons.favorite,
         backgroundColor: Colors.red,
         screen: FavoriteHymnListScreen()),
     MenuItem(
         name: setting,
-        title: "Settings",
+        title: "Paramètres",
         icon: Icons.settings,
         backgroundColor: Colors.blueGrey,
         screen: SettingScreen()),
     MenuItem(
         name: about,
-        title: "Mombamomba",
+        title: "A propos",
         icon: Icons.info,
         backgroundColor: Colors.teal,
         screen: AboutScreen()),

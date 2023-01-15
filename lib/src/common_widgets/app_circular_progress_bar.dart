@@ -52,7 +52,7 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
             padding: const EdgeInsets.all(10.0),
             child: CircularProgressIndicator(
               value: controller.value,
-              semanticsLabel: 'Loading',
+              semanticsLabel: 'Chargement en cours',
             ),
           ),
         ],

@@ -18,8 +18,8 @@ class IconLink extends StatelessWidget {
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: Text('Error launching url: $url'),
+                  title: const Text('Oops!'),
+                  content: Text("Impossible d'ouvrir l'url : $url"),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),

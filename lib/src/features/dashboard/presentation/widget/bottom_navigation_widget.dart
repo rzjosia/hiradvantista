@@ -27,7 +27,7 @@ class _BottomNavigationWidgetState
       notchSmoothness: NotchSmoothness.defaultEdge,
       activeColor: Colors.white,
       inactiveColor: Colors.white54,
-      backgroundColor: Colors.brown,
+      backgroundColor: Theme.of(context).primaryColor,
     );
   }
 

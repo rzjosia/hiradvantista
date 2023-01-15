@@ -10,7 +10,7 @@ class FavoriteHymnListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hira tianao'),
+        title: const Text('Favoris'),
       ),
       body: const HymnFilterWidget(filterType: HymnFilterType.favorite),
     );

@@ -3,6 +3,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hiradvantista/src/route/go_router_provider.dart';
 
+import 'features/setting/application/dark_mode_service.dart';
+
 class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
@@ -25,6 +27,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(goRouterProvider);
+    final darkMode = ref.watch(darkModeServiceProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
@@ -32,6 +35,8 @@ class _MyAppState extends ConsumerState<MyApp> {
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
       title: 'Fihirana advantista',
+      darkTheme: ThemeData.dark(),
+      themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
