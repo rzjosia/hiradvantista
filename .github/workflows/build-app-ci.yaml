@@ -1,5 +1,5 @@
 name: Build app
-run-name: Build android app
+run-name: Build app
 on: [ push ]
 
 concurrency:
@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   analyze-code:
-    name: Analyze c
+    name: Analyze code
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
