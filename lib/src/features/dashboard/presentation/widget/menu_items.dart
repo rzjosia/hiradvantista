@@ -31,7 +31,7 @@ class Menu {
         name: home,
         title: "Hira",
         icon: Icons.list,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.brown,
         screen: HymnListScreen()),
     MenuItem(
         name: favorite,

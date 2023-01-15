@@ -9,20 +9,43 @@ class HymnListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hira'),
-        backgroundColor: Colors.blue,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              showSearch(
-                  context: context, delegate: HymnSearchDelegateWidget());
-            },
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.brown,
+            foregroundColor: Colors.white,
+            pinned: true,
+            snap: false,
+            floating: false,
+            expandedHeight: 160.0,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: const EdgeInsets.only(
+                  left: 76, right: 45, bottom: 16, top: 52),
+              title: const Text('Hira',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold)),
+              background: Image.asset(
+                "assets/images/hymn_sliver_background.jpg",
+                fit: BoxFit.cover,
+              ),
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: HymnSearchDelegateWidget(),
+                  );
+                },
+              ),
+            ],
           ),
+          const HymnFilterWidget(isSliver: true),
         ],
       ),
-      body: const HymnFilterWidget(),
     );
   }
 }

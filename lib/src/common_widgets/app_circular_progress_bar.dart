@@ -33,8 +33,12 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      body: Column(
+        body: SizedBox(
+      width: double.infinity,
+      height: mediaQuery.size.height,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           if (widget.message != null)
@@ -53,6 +57,6 @@ class _AppCircularProgressBarState extends State<AppCircularProgressBar>
           ),
         ],
       ),
-    );
+    ));
   }
 }

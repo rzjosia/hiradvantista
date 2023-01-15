@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hiradvantista/src/app.dart';
-import 'package:hiradvantista/src/constants/about_constant.dart';
-import 'package:hiradvantista/src/features/hymn/domain/song_model.dart';
+import 'package:hiradvantista/src/constants/app_info.dart';
+import 'package:hiradvantista/src/features/hymn/domain/hymn_model.dart';
 import 'package:hiradvantista/src/features/hymn/repository/hymn_repository.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_test/hive_test.dart';
@@ -26,27 +26,28 @@ void main() {
       await Hive.initFlutter();
 
       if (!Hive.isAdapterRegistered(0)) {
-        Hive.registerAdapter(SongModelAdapter());
+        Hive.registerAdapter(HymnModelAdapter());
       }
 
-      await Hive.openBox<SongModel>("songs");
+      await Hive.openBox<HymnModel>("hymns");
 
-      Box<SongModel> box = await Hive.openBox("songs");
+      Box<HymnModel> box = await Hive.openBox("hymns");
 
       box.deleteAll(box.keys);
 
-      await HymnRepository(box: box).loadSongs();
+      await HymnRepository(box: box).loadHymns();
+      await AppInfo().init();
     });
   }
 
-  testWidgets('Display song in list', (WidgetTester tester) async {
+  testWidgets('Display hymns in list', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await init(tester);
     await tester.pumpWidget(const ProviderScope(child: MyApp()));
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key("fihirana-1")), findsOneWidget);
-    expect(find.byKey(const Key("fihirana-9")), findsOneWidget);
+    expect(find.byKey(const Key("fihirana-3")), findsOneWidget);
 
     await tester.tap(find.byKey(const Key("fihirana-1")));
     await tester.pumpAndSettle();
@@ -61,7 +62,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key("favorite-1")), findsOneWidget);
-    expect(find.byKey(const Key("favorite-9")), findsOneWidget);
+    expect(find.byKey(const Key("favorite-3")), findsOneWidget);
 
     await tester.tap(find.byKey(const Key("favorite-1")));
     await tester.tap(find.byKey(const Key("fihirana-1")));
@@ -94,8 +95,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text("Mombamomba"), findsOneWidget);
-    expect(find.textContaining(AboutApp.description), findsOneWidget);
-    expect(find.textContaining(AboutApp.author), findsOneWidget);
-    expect(find.textContaining(AboutApp.developerEmail), findsOneWidget);
+    expect(find.textContaining(AppInfo().description), findsOneWidget);
+    expect(find.textContaining(AppInfo().author), findsOneWidget);
   });
 }

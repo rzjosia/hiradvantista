@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../domain/song_model.dart';
+import '../domain/hymn_model.dart';
 import '../repository/hymn_repository.dart';
 
 enum HymnFilterType { all, favorite }
@@ -16,30 +16,30 @@ class HymnService extends ChangeNotifier {
 
   HymnService({required this.hymnRepository}) : super();
 
-  Future<SongModel> getSongByNumerous(int num) async {
-    return hymnRepository.getSongByNumerous(num);
+  Future<HymnModel> getHymnById(int num) async {
+    return hymnRepository.findById(num);
   }
 
-  Future<List<SongModel>> searchSongs(String query) async {
-    return hymnRepository.searchSongs(query);
+  Future<List<HymnModel>> searchHymns(String query) async {
+    return hymnRepository.search(query);
   }
 
-  Future<List<SongModel>> getFavorites() async {
-    return hymnRepository.getFavorites();
+  Future<List<HymnModel>> getFavorites() async {
+    return hymnRepository.findFavorites();
   }
 
-  Future<List<SongModel>> getSongsByFilter(HymnFilterType filterType,
+  Future<List<HymnModel>> getFilteredHymns(HymnFilterType filterType,
       {String searchQuery = ""}) async {
     switch (filterType) {
       case HymnFilterType.favorite:
         return getFavorites();
       default:
-        return searchSongs(searchQuery);
+        return searchHymns(searchQuery);
     }
   }
 
-  Future<void> toggleFavorite(SongModel song) {
-    final result = hymnRepository.toggleFavorite(song);
+  Future<void> toggleFavorite(HymnModel hymn) {
+    final result = hymnRepository.toggleFavorite(hymn);
     notifyListeners();
     return result;
   }

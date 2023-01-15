@@ -3,26 +3,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:yaml/yaml.dart';
 
-import '../domain/song_model.dart';
+import '../domain/hymn_model.dart';
 import 'hymn_db_provider.dart';
 
 final hymnRepositoryProvider = Provider<HymnRepository>((ref) {
-  Box<SongModel> box = ref.watch(hymnDbProvider);
+  Box<HymnModel> box = ref.watch(hymnDbProvider);
   return HymnRepository(box: box);
 });
 
 class HymnRepository {
-  Box<SongModel> box;
+  Box<HymnModel> box;
 
   HymnRepository({required this.box});
 
-  Future<void> loadSongs() async {
+  Future<void> loadHymns() async {
     for (int i = 1; i <= 756; ++i) {
       final data =
           await s.rootBundle.loadString('assets/data/sources/song$i.yaml');
 
       final mapData = loadYaml(data);
-      SongModel song = SongModel(
+      HymnModel hymn = HymnModel(
         id: i,
         title: mapData['title'],
         key: mapData['key'],
@@ -30,40 +30,47 @@ class HymnRepository {
         isFavorite: false,
       );
 
-      await box.add(song);
+      await box.add(hymn);
     }
   }
 
-  List<SongModel> getSongs() {
+  List<HymnModel> all() {
     return box.values.toList();
   }
 
-  SongModel getSong(int id) {
+  HymnModel findByBoxId(int id) {
     return box.getAt(id)!;
   }
 
-  SongModel getSongByNumerous(int num) {
-    return box.values.firstWhere((element) => element.id == num);
+  HymnModel findById(int num) {
+    return box.values.toList().firstWhere((element) => element.id == num);
   }
 
-  List<SongModel> searchSongs(String query) {
+  List<HymnModel> search(String query) {
+    late List<HymnModel> result;
+
     if (query.isEmpty) {
-      return box.values.toList();
+      result = box.values.toList();
+    } else {
+      result = box.values
+          .where((element) =>
+              element.title.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     }
 
-    return box.values
-        .where((element) =>
-            element.id.toString().compareTo(query) == 0 ||
-            element.title.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    result.sort((a, b) => a.id.compareTo(b.id));
+    return result;
   }
 
-  List<SongModel> getFavorites() {
-    return box.values.where((element) => element.isFavorite == true).toList();
+  List<HymnModel> findFavorites() {
+    List<HymnModel> model =
+        box.values.where((element) => element.isFavorite == true).toList();
+    model.sort((a, b) => a.id.compareTo(b.id));
+    return model;
   }
 
-  Future<void> toggleFavorite(SongModel song) async {
-    box.putAt(song.id - 1, song.setIsFavorite(!song.isFavorite!));
+  Future<void> toggleFavorite(HymnModel hymn) async {
+    box.putAt(hymn.id - 1, hymn.setIsFavorite(!hymn.isFavorite!));
   }
 
   Future<void> deleteAll() async {
