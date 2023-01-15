@@ -1,5 +1,5 @@
-name: Build app
-run-name: Build app
+name: Build android app
+run-name: Build android app
 on: [ push ]
 
 concurrency:
