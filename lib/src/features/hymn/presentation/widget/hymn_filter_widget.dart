@@ -25,6 +25,8 @@ class HymnFilterWidget extends ConsumerWidget {
     Future<List<HymnModel>> hymn =
         service.getFilteredHymns(filterType, searchQuery: searchQuery);
 
+    String errorMessage = "Aucun hymne trouvé";
+
     if (isSliver) {
       return FutureBuilder(
         future: hymn,
@@ -33,8 +35,8 @@ class HymnFilterWidget extends ConsumerWidget {
             final data = snapshot.data as List<HymnModel>;
 
             if (data.isEmpty) {
-              return const SliverCenter(
-                child: Text("Aucune donnée disponible"),
+              return SliverCenter(
+                child: Text(errorMessage),
               );
             }
 
@@ -64,8 +66,8 @@ class HymnFilterWidget extends ConsumerWidget {
           final data = snapshot.data as List<HymnModel>;
 
           if (data.isEmpty) {
-            return const Center(
-              child: Text("Auucune donnée disponible"),
+            return Center(
+              child: Text(errorMessage),
             );
           }
 
