@@ -64,7 +64,7 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
                       },
                     ),
                     Text(
-                      'Current font size: $fontSize',
+                      'Taille : $fontSize',
                       style: TextStyle(
                         fontSize: fontSize.toDouble(),
                       ),
