@@ -30,14 +30,14 @@ class _InitializationScreenState extends ConsumerState<InitializationScreen> {
             body: Center(
               child: Container(
                 padding: const EdgeInsets.all(8),
-                child: const Text('Ialana tsiny fa misy tsy mety kely.'),
+                child:
+                    const Text("Une erreur est survenue lors du chargement."),
               ),
             ),
           );
         }
 
-        return const AppCircularProgressBar(
-            message: "Eo am-panomanana ireo hira rehetra izahay...");
+        return const AppCircularProgressBar(message: "Chargement en cours...");
       },
     );
   }

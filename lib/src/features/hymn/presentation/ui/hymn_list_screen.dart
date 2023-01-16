@@ -12,7 +12,6 @@ class HymnListScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.brown,
             foregroundColor: Colors.white,
             pinned: true,
             snap: false,

@@ -34,8 +34,7 @@ class HymnFilterWidget extends ConsumerWidget {
 
             if (data.isEmpty) {
               return const SliverCenter(
-                child:
-                    Text("Tsy misy na inona na inona amin'izay tadiavinao ato"),
+                child: Text("Aucune donnée disponible"),
               );
             }
 
@@ -66,8 +65,7 @@ class HymnFilterWidget extends ConsumerWidget {
 
           if (data.isEmpty) {
             return const Center(
-              child:
-                  Text("Tsy misy na inona na inona amin'izay tadiavinao ato"),
+              child: Text("Auucune donnée disponible"),
             );
           }
 

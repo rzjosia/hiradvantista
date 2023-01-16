@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hiradvantista/src/common_widgets/app_circular_progress_bar.dart';
 
+import '../../../setting/application/font_size_service.dart';
 import '../../application/hymn_service.dart';
 import '../../domain/hymn_model.dart';
 
@@ -19,6 +20,7 @@ class _HymnScreenState extends ConsumerState<HymnScreen> {
   Widget build(BuildContext context) {
     final hymnService = ref.watch(hymnServiceProvider);
     final Future<HymnModel> hymn = hymnService.getHymnById(widget.id);
+    final fontSize = ref.watch(fontSizeServiceProvider);
 
     return FutureBuilder(
       future: hymn,
@@ -32,26 +34,37 @@ class _HymnScreenState extends ConsumerState<HymnScreen> {
             body: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  backgroundColor: Colors.brown,
+                  backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: Colors.white,
                   pinned: true,
-                  snap: false,
+                  snap: true,
                   floating: true,
-                  expandedHeight: 160.0,
+                  expandedHeight: 170.0,
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: const EdgeInsets.only(
-                        left: 76, right: 45, bottom: 16, top: 52),
+                        left: 50, right: 45, bottom: 16, top: 52),
                     title: Text(title,
                         style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                            color: Colors.white, fontWeight: FontWeight.bold)),
                     background: Image.asset(
                       "assets/images/sliver_background.jpg",
                       fit: BoxFit.cover,
                     ),
+                    centerTitle: true,
                   ),
                   actions: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.remove),
+                      onPressed: () {
+                        ref.read(fontSizeServiceProvider.notifier).decrease();
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () {
+                        ref.read(fontSizeServiceProvider.notifier).increase();
+                      },
+                    ),
                     IconButton(
                       key: Key("favorite-${hymn.id}"),
                       icon: hymn.isFavorite == true
@@ -71,7 +84,8 @@ class _HymnScreenState extends ConsumerState<HymnScreen> {
                     child: SizedBox(
                       width: double.infinity,
                       child: Text(hymn.content,
-                          style: const TextStyle(fontSize: 18, height: 1.5)),
+                          style: TextStyle(
+                              fontSize: fontSize.toDouble(), height: 1.5)),
                     ),
                   ),
                 )

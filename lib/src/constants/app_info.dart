@@ -16,7 +16,7 @@ class AppInfo {
   get developerLinkedin => 'https://www.linkedin.com/in/josia-razafinjatovo/';
 
   get description => "Fihirana advantista dia application"
-      " hahafahanao mamaky ny fihirana advantista malagasy.";
+      " de recueil des cantiques adventistes malagasy.";
 
   get copyRight => "© 2023 $author";
 

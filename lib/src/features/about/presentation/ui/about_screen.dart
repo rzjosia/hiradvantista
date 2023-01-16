@@ -13,7 +13,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mombamomba'),
+        title: const Text('A propos'),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -60,7 +60,10 @@ class AboutScreen extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(10.0),
-              child: PayPalButton(paypalButtonId: AppInfo().developerPaypal),
+              child: PayPalButton(
+                paypalButtonId: AppInfo().developerPaypal,
+                donationText: "Soutenir le développement de l'application",
+              ),
             ),
             Container(
               padding: const EdgeInsets.all(10.0),

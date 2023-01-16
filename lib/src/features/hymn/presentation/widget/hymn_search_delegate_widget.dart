@@ -3,7 +3,7 @@ import 'package:hiradvantista/src/features/hymn/presentation/widget/hymn_filter_
 
 class HymnSearchDelegateWidget extends SearchDelegate<String> {
   @override
-  String get searchFieldLabel => 'Hitady hira';
+  String get searchFieldLabel => 'N° ou titre';
 
   @override
   List<Widget>? buildActions(BuildContext context) {

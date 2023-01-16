@@ -94,7 +94,7 @@ void main() {
     await tester.tap(find.byIcon(Icons.info));
     await tester.pumpAndSettle();
 
-    expect(find.text("Mombamomba"), findsOneWidget);
+    expect(find.text("A propos"), findsOneWidget);
     expect(find.textContaining(AppInfo().description), findsOneWidget);
     expect(find.textContaining(AppInfo().author), findsOneWidget);
   });

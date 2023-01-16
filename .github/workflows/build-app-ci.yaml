@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   analyze-code:
-    name: Analyze code
+    name: Analyze c
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
