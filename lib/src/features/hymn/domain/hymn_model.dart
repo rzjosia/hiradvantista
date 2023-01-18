@@ -19,20 +19,26 @@ class HymnModel {
   @HiveField(4)
   final bool? isFavorite;
 
+  @HiveField(5)
+  final String? theme;
+
   HymnModel(
       {required this.id,
       required this.title,
       required this.key,
       required this.content,
-      this.isFavorite = false});
+      this.isFavorite = false,
+      this.theme});
 
   factory HymnModel.fromJson(Map<String, dynamic> json) {
     return HymnModel(
-        id: json['id'],
-        title: json['title'],
-        key: json['key'],
-        content: json['content'],
-        isFavorite: json['isFavorite']);
+      id: json['id'],
+      title: json['title'],
+      key: json['key'],
+      content: json['content'],
+      isFavorite: json['isFavorite'],
+      theme: json['theme'] ?? "",
+    );
   }
 
   operator [](String currentKey) {
@@ -47,6 +53,8 @@ class HymnModel {
         return content;
       case 'isFavorite':
         return isFavorite;
+      case 'theme':
+        return theme;
       default:
         return null;
     }
@@ -56,10 +64,12 @@ class HymnModel {
 extension HymnModelExtension on HymnModel {
   HymnModel setIsFavorite(bool isFavorite) {
     return HymnModel(
-        id: id,
-        title: title,
-        key: key,
-        content: content,
-        isFavorite: isFavorite);
+      id: id,
+      title: title,
+      key: key,
+      content: content,
+      isFavorite: isFavorite,
+      theme: theme,
+    );
   }
 }
