@@ -20,7 +20,7 @@ class HymnListScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.only(
                   left: 76, right: 45, bottom: 16, top: 52),
-              title: const Text('Fihirana',
+              title: const Text('Hira',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
