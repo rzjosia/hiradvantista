@@ -15,10 +15,18 @@ class InitializationScreen extends ConsumerStatefulWidget {
 }
 
 class _InitializationScreenState extends ConsumerState<InitializationScreen> {
+  late Future<bool> initData;
+
+  @override
+  void initState() {
+    super.initState();
+    initData = ref.read(initControllerProvider.notifier).initData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      initialData: ref.read(initControllerProvider.notifier).initData(),
+      initialData: initData,
       builder: (context, AsyncSnapshot<Future<bool>> data) {
         if (data.hasData && data.data != null) {
           data.data!.whenComplete(() {

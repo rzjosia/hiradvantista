@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:yaml/yaml.dart';
 
 part 'hymn_model.g.dart';
 
@@ -41,6 +42,17 @@ class HymnModel {
     );
   }
 
+  factory HymnModel.fromYamlMap(YamlMap yamlMap) {
+    return HymnModel(
+      id: yamlMap['id'],
+      title: yamlMap['title'],
+      key: yamlMap['key'],
+      content: yamlMap['content'],
+      isFavorite: yamlMap['isFavorite'] ?? false,
+      theme: yamlMap['theme'] ?? "",
+    );
+  }
+
   operator [](String currentKey) {
     switch (currentKey) {
       case 'id':
@@ -58,6 +70,17 @@ class HymnModel {
       default:
         return null;
     }
+  }
+
+  HymnModel copyWith({bool? isFavorite}) {
+    return HymnModel(
+      id: id,
+      title: title,
+      key: key,
+      content: content,
+      isFavorite: isFavorite ?? this.isFavorite,
+      theme: theme,
+    );
   }
 }
 
