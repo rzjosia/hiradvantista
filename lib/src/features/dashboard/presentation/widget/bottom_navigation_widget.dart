@@ -6,7 +6,9 @@ import '../controller/dashboard_controller.dart';
 import 'menu_items.dart';
 
 class BottomNavigationWidget extends ConsumerStatefulWidget {
-  const BottomNavigationWidget({super.key});
+  final PageController pageController;
+
+  const BottomNavigationWidget({required this.pageController, super.key});
 
   @override
   ConsumerState<BottomNavigationWidget> createState() =>
@@ -33,5 +35,7 @@ class _BottomNavigationWidgetState
 
   void _onTap(int index) {
     ref.read(dashboardControllerProvider.notifier).setPosition(index);
+    widget.pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 }

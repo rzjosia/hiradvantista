@@ -8,7 +8,7 @@ final hiveDbProvider = Provider<HiveDb>((ref) {
 });
 
 class HiveDb {
-  Future<void> init({bool isTest = false}) async {
+  Future<void>  init({bool isTest = false}) async {
     await Hive.initFlutter();
 
     if (!Hive.isAdapterRegistered(0)) {

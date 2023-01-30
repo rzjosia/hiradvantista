@@ -36,4 +36,22 @@ class HymnSearchDelegateWidget extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context) {
     return HymnFilterWidget(searchQuery: query);
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Recherche'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              query = '';
+            },
+          ),
+        ],
+      ),
+      body: HymnFilterWidget(searchQuery: query),
+    );
+  }
 }
