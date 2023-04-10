@@ -17,8 +17,7 @@ class InitializationController extends StateNotifier<bool> {
   }
 
   Future<bool> initData() async {
-    await ref.watch(initServiceProvider).initData();
-    return true;
+    return await ref.watch(initServiceProvider).initData();
   }
 
   bool isInitialized() {

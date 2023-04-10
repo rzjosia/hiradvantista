@@ -17,20 +17,20 @@ class HymnRepository {
   HymnRepository({required this.box});
 
   Future<void> loadHymns() async {
-    for (int i = 1; i <= 756; ++i) {
-      final data =
-          await s.rootBundle.loadString('assets/data/sources/song$i.yaml');
+    String hymnsData =
+        await s.rootBundle.loadString('assets/data/fihirana.yaml');
 
-      final mapData = loadYaml(data);
-      HymnModel hymn = HymnModel(
-        id: i,
-        title: mapData['title'],
-        key: mapData['key'],
-        content: mapData['content'],
-        isFavorite: false,
-      );
+    YamlList hymns = loadYaml(hymnsData);
 
-      await box.add(hymn);
+    for (YamlMap hymn in hymns) {
+      HymnModel hymnModel = HymnModel.fromYamlMap(hymn);
+      HymnModel? currentHymn = box.get(hymnModel.id - 1);
+
+      if (currentHymn != null) {
+        hymnModel = hymnModel.copyWith(isFavorite: currentHymn.isFavorite);
+      }
+
+      await box.add(hymnModel);
     }
   }
 
@@ -46,7 +46,7 @@ class HymnRepository {
     return box.values.toList().firstWhere((element) => element.id == num);
   }
 
-  List<HymnModel> search(String query) {
+  List<HymnModel> search(String query, {bool searchInContent = false}) {
     late List<HymnModel> result;
 
     if (query.isEmpty) {
@@ -54,7 +54,10 @@ class HymnRepository {
     } else {
       result = box.values
           .where((element) =>
-              element.title.toLowerCase().contains(query.toLowerCase()))
+              element.title.toLowerCase().contains(query.toLowerCase()) ||
+              element.id.toString() == query ||
+              searchInContent &&
+                  element.content.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
 
@@ -74,10 +77,14 @@ class HymnRepository {
   }
 
   Future<void> deleteAll() async {
-    await box.deleteAll(box.keys);
+    await box.clear();
   }
 
   bool isEmpty() {
     return box.isEmpty;
+  }
+
+  int getLastId() {
+    return box.values.toList().last.id;
   }
 }

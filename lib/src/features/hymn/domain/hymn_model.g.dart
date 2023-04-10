@@ -22,13 +22,14 @@ class HymnModelAdapter extends TypeAdapter<HymnModel> {
       key: fields[2] as String,
       content: fields[3] as String,
       isFavorite: fields[4] as bool?,
+      theme: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, HymnModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class HymnModelAdapter extends TypeAdapter<HymnModel> {
       ..writeByte(3)
       ..write(obj.content)
       ..writeByte(4)
-      ..write(obj.isFavorite);
+      ..write(obj.isFavorite)
+      ..writeByte(5)
+      ..write(obj.theme);
   }
 
   @override

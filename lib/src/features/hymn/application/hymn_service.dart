@@ -20,8 +20,9 @@ class HymnService extends ChangeNotifier {
     return hymnRepository.findById(num);
   }
 
-  Future<List<HymnModel>> searchHymns(String query) async {
-    return hymnRepository.search(query);
+  Future<List<HymnModel>> searchHymns(String query,
+      {bool searchInContent = false}) async {
+    return hymnRepository.search(query, searchInContent: searchInContent);
   }
 
   Future<List<HymnModel>> getFavorites() async {
@@ -29,12 +30,12 @@ class HymnService extends ChangeNotifier {
   }
 
   Future<List<HymnModel>> getFilteredHymns(HymnFilterType filterType,
-      {String searchQuery = ""}) async {
+      {String searchQuery = "", bool searchInContent = false}) async {
     switch (filterType) {
       case HymnFilterType.favorite:
         return getFavorites();
       default:
-        return searchHymns(searchQuery);
+        return searchHymns(searchQuery, searchInContent: searchInContent);
     }
   }
 
@@ -43,4 +44,6 @@ class HymnService extends ChangeNotifier {
     notifyListeners();
     return result;
   }
+
+  int get lastId => hymnRepository.getLastId();
 }

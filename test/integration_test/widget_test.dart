@@ -33,7 +33,7 @@ void main() {
 
       Box<HymnModel> box = await Hive.openBox("hymns");
 
-      box.deleteAll(box.keys);
+      box.clear();
 
       await HymnRepository(box: box).loadHymns();
       await AppInfo().init();

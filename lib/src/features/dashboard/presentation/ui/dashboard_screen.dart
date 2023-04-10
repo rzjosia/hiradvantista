@@ -17,12 +17,30 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen>
     with TickerProviderStateMixin {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pageController = PageController();
+  }
+
   @override
   Widget build(BuildContext context) {
     final position = ref.watch(dashboardControllerProvider);
 
     return Scaffold(
-      body: Menu.items[position].screen,
+      body: PageView.builder(
+        controller: _pageController,
+        onPageChanged: (index) {
+          ref.read(dashboardControllerProvider.notifier).setPosition(index);
+        },
+        itemCount: Menu.items.length,
+        itemBuilder: (context, index) {
+          return Menu.items[position].screen;
+        },
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -35,7 +53,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
         foregroundColor: Colors.white,
         child: const Icon(Icons.search),
       ),
-      bottomNavigationBar: const BottomNavigationWidget(),
+      bottomNavigationBar: BottomNavigationWidget(
+        pageController: _pageController,
+      ),
     );
   }
 }
